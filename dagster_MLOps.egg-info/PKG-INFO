@@ -5,7 +5,7 @@ Requires-Dist: dagster
 Requires-Dist: dagster-cloud
 Requires-Dist: pandas
 Requires-Dist: requests
-Requires-Dist: json
+Requires-Dist: sklearn
 Provides-Extra: dev
 Requires-Dist: dagster-webserver; extra == "dev"
 Requires-Dist: pytest; extra == "dev"

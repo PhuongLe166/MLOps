@@ -1,10 +1,12 @@
 import requests
 import json
 import os
-from dagster import asset
+from dagster import asset, MetadataValue
+import pandas as pd
+
 
 @asset(compute_kind='API Ingest')
-def ingest_daily_data_from_api(context:AssetExecutionContext) -> pd.DataFrame:
+def ingest_daily_data_from_api(context):
     '''
     Get daily data starting from 2022-01-01 to make batch prediction
     API: https://www.energidataservice.dk/guides/api-guides

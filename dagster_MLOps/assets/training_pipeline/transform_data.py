@@ -1,11 +1,12 @@
 import pandas as pd
-import numpy
+import numpy as np
 from sklearn.model_selection import train_test_split
 from sklearn.preprocessing import StandardScaler, OneHotEncoder
 from dagster import (
     asset, 
     multi_asset, 
-    AssetOut
+    AssetOut,
+    Output
 )
 
 @asset()
@@ -23,14 +24,14 @@ def feature_engineered_data(ingest_data_from_api) -> pd.DataFrame:
 
 @multi_asset(outs={'training_data': AssetOut(), 'test_data': AssetOut()})
 def train_test_data(feature_engineered_data):
-    X = df_feature_engineered.drop(columns=['TotalCon'])
-    y = df_feature_engineered.TotalCon
+    # X = df_feature_engineered.drop(columns=['TotalCon'])
+    # y = df_feature_engineered.TotalCon
 
     X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2)
-    return (X_train, y_train), (X_test, y_test)
+    yield Output((X_train, y_train), output_name="training_data")
+    yield Output((X_test, y_test), output_name="test_data")
 
-@multi_asset(outs= {'scaler': AssetOut(), 'encoder': AssetOut(), "transformed_training_data": AssetOut()}
-)
+@multi_asset(outs={'scaler': AssetOut(), 'encoder': AssetOut(),"transformed_training_data": AssetOut() })
 def transformed_traing_data(training_data):
     X_train, y_train = training_data
     
@@ -48,7 +49,10 @@ def transformed_traing_data(training_data):
     transformed_X_train = transformed_X_train.toarray()
     transformed_y_train = np.array(y_train)
     
-    return scaler, encoder, (transformed_X_train, transformed_y_train)
+    # return scaler, encoder, (transformed_X_train, transformed_y_train)
+    yield Output(scaler, output_name="scaler")
+    yield Output(encoder, output_name="encoder")
+    yield Output((transformed_X_train, transformed_y_train), output_name="transformed_training_data")
 
 @asset()
 def transformed_test_data(test_data, scaler, encoder):

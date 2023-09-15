@@ -3,9 +3,13 @@ pyproject.toml
 setup.cfg
 setup.py
 dagster_MLOps/__init__.py
-dagster_MLOps/assets.py
 dagster_MLOps.egg-info/PKG-INFO
 dagster_MLOps.egg-info/SOURCES.txt
 dagster_MLOps.egg-info/dependency_links.txt
 dagster_MLOps.egg-info/requires.txt
 dagster_MLOps.egg-info/top_level.txt
+dagster_MLOps/assets/__init__.py
+dagster_MLOps/assets/training_pipeline/__init__.py
+dagster_MLOps/assets/training_pipeline/ingest_api.py
+dagster_MLOps/assets/training_pipeline/model_train.py
+dagster_MLOps/assets/training_pipeline/transform_data.py

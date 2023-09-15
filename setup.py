@@ -8,6 +8,7 @@ setup(
         "dagster-cloud",
         "pandas",
         "requests",
+        "scikit-learn"
     ],
     extras_require={"dev": ["dagster-webserver", "pytest"]},
 )

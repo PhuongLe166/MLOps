@@ -2,7 +2,7 @@ dagster
 dagster-cloud
 pandas
 requests
-json
+sklearn
 
 [dev]
 dagster-webserver
